@@ -6,7 +6,11 @@
     <PackageId>SartainStudios.Common</PackageId>
     <Authors>John Sartain</Authors>
     <Company>Sartain Studios</Company>
-    <Version>1.0.1</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
 
 </Project>
