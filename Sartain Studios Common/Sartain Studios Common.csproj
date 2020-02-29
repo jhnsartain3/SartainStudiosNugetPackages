@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Sartain_Studios_Common</RootNamespace>
+    <PackageId>SartainStudios.Common</PackageId>
+    <Authors>John Sartain</Authors>
+    <Company>Sartain Studios</Company>
+  </PropertyGroup>
+
+</Project>
