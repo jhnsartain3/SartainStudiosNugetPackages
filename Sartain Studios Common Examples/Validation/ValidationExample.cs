@@ -1,18 +1,18 @@
-﻿using Sartain_Studios_Common.Validation;
+﻿using System;
+using Sartain_Studios_Common.Validation;
 using Sartain_Studios_Common_Examples.Validation.Models;
 using Sartain_Studios_Common_Examples.Validation.Rules;
-using System;
 
 namespace Sartain_Studios_Common_Examples.Validation
 {
-    class ValidationExample
+    internal class ValidationExample
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            int age = 16;
-            bool consumesAlcohol = true;
+            var age = 16;
+            var consumesAlcohol = true;
 
-            var person = new Person { Age = age, ConsumesAlcohol = consumesAlcohol };
+            var person = new Person {Age = age, ConsumesAlcohol = consumesAlcohol};
 
             IValidationList validationList = new ValidationList
             {
@@ -20,7 +20,7 @@ namespace Sartain_Studios_Common_Examples.Validation
                 new OnlyAdultsCanConsumeAlcoholValidation(person)
             };
 
-            AlcoholSeller alcoholSeller = new AlcoholSeller(validationList);
+            var alcoholSeller = new AlcoholSeller(validationList);
 
             Console.WriteLine(alcoholSeller.IsValid);
 

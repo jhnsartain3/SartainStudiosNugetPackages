@@ -1,5 +1,5 @@
-﻿using Sartain_Studios_Common.Validation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Sartain_Studios_Common.Validation;
 
 namespace Sartain_Studios_Common_Examples.Validation
 {
@@ -12,20 +12,8 @@ namespace Sartain_Studios_Common_Examples.Validation
             _validationList = validationList;
         }
 
-        public bool IsValid
-        {
-            get
-            {
-                return _validationList.IsValid;
-            }
-        }
+        public bool IsValid => _validationList.IsValid;
 
-        public IEnumerable<string> Messages
-        {
-            get
-            {
-                return _validationList.Messages;
-            }
-        }
+        public IEnumerable<string> Messages => _validationList.Messages;
     }
 }

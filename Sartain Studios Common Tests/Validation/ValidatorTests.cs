@@ -1,22 +1,19 @@
+using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using Sartain_Studios_Common.Validation;
-using System.Collections.Generic;
 
 namespace Sartain_Studios_Common_Tests.Validation
 {
     public class ValidatorTests
     {
-        Validator _validator;
-
-        Mock<IValidationList> _validationListMock;
+        private Mock<IValidationList> _validationListMock;
+        private Validator _validator;
 
         [SetUp]
         public void Setup()
         {
-            _validationListMock = new Mock<IValidationList>
-            {
-            };
+            _validationListMock = new Mock<IValidationList>();
 
             _validator = new Validator(_validationListMock.Object);
         }
@@ -41,7 +38,7 @@ namespace Sartain_Studios_Common_Tests.Validation
         [Test]
         public void MessagesReturnsListOfMessages()
         {
-            var messages = new List<string> { "Error 1", "Error 2" };
+            var messages = new List<string> {"Error 1", "Error 2"};
             _validationListMock.Setup(validationList => validationList.Messages).Returns(messages);
 
             Assert.AreEqual(messages, _validator.Messages);

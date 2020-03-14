@@ -10,18 +10,10 @@ namespace Sartain_Studios_Common_Examples.Validation.Rules
         {
         }
 
-        public override bool IsValid
-        {
-            get { return Context.Age >= 0; }
-        }
+        public override bool IsValid => Context.Age >= 0;
 
-        public override string Message
-        {
-            get
-            {
-                return string.Format("The Age {1} of {0} is not 0 or higher.",
-                    Context.Name, Context.Age);
-            }
-        }
+        public override string Message =>
+            string.Format("The Age {1} of {0} is not 0 or higher.",
+                Context.Name, Context.Age);
     }
 }
