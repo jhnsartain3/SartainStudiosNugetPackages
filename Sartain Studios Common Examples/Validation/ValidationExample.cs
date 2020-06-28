@@ -7,12 +7,17 @@ namespace Sartain_Studios_Common_Examples.Validation
 {
     internal class ValidationExample
     {
-        private static void Main(string[] args)
+        public void RunAllExamples()
+        {
+            Example1();
+        }
+
+        public void Example1()
         {
             var age = 16;
             var consumesAlcohol = true;
 
-            var person = new Person {Age = age, ConsumesAlcohol = consumesAlcohol};
+            var person = new Person { Age = age, ConsumesAlcohol = consumesAlcohol };
 
             IValidationList validationList = new ValidationList
             {
