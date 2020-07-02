@@ -8,5 +8,10 @@ namespace Sartain_Studios_Common.Time_Functions
         {
             return DateTime.Now;
         }
+
+        public DateTime GetCurrentDateTimeLocal()
+        {
+            return DateTime.Now.ToLocalTime();
+        }
     }
 }
