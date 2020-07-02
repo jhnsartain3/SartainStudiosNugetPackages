@@ -36,7 +36,7 @@ namespace Sartain_Studios_Common_Tests.Logging
         {
             var result = _loggerService.DetermineWritePath(_sampleType, _fileName);
 
-            Assert.AreEqual((@"C:\SomeDirectory\On\The\DriveWarning", "Log Warning.log"), result);
+            Assert.AreEqual((@"C:\SomeDirectory\On\The\Drive\Warning\", "Log Warning.log"), result);
         }
     }
 }
