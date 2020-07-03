@@ -37,7 +37,7 @@ namespace Sartain_Studios_Common.Logging
 
         public (string directory, string fileNameAndExtension) DetermineWritePath(string type, string fileName)
         {
-            var directory = _baseLogDirectory + @"\" + type + @"\";
+            var directory = _baseLogDirectory  + type + @"\";
             var fileNameAndExtension = (string.IsNullOrEmpty(fileName) ? "log" : fileName + " " + type) + ".log";
 
             return (directory, fileNameAndExtension);
