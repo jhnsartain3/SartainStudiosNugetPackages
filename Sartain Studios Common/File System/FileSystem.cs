@@ -18,10 +18,9 @@ namespace Sartain_Studios_Common.File_System
         {
             Directory.CreateDirectory(directory);
 
-            using (var sw = File.AppendText(directory + fileName))
-            {
-                sw.WriteLine(content);
-            }
+            ReadWriteLocker readWriteLocker = new ReadWriteLocker();
+
+            readWriteLocker.WriteToFileThreadSafe(directory + fileName, content);
         }
     }
 }
