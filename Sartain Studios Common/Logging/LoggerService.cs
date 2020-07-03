@@ -23,7 +23,7 @@ namespace Sartain_Studios_Common.Logging
             var (directory, fileNameAndExtension) = DetermineWritePath(type, fileName);
 
             WriteToLog(directory, fileNameAndExtension, contentToWrite);
-            WriteToLog(directory, "Everything.log", contentToWrite);
+            WriteToLog(_baseLogDirectory, "Everything.log", contentToWrite);
         }
 
         public string DetermineContentToWrite(string content, string type, string? codeOrigin, string? subCodeOrigin)
