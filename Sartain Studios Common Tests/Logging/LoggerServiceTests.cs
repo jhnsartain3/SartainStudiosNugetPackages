@@ -7,7 +7,7 @@ namespace Sartain_Studios_Common_Tests.Logging
     public class LoggerServiceTests
     {
         private LoggerService _loggerService;
-        private readonly string _baseLogDirectory = @"C:\SomeDirectory\On\The\Drive";
+        private readonly string _baseLogDirectory = @"C:\SomeDirectory\On\The\Drive\";
         private readonly string _sampleExampleContent = "Some example content";
         private readonly string _sampleCodeOrigin = "Network";
         private readonly string _sampleSubCodeOrigin = "Wifi";
