@@ -6,17 +6,71 @@ namespace Sartain_Studios_Common_Tests.Time_Calculator
 {
     public class TimeCalculatorTests
     {
+        private readonly DateTime SampleStartDateTime = DateTime.Parse("2020-06-23T13:00:00.000+00:00");
         private readonly DateTime SampleEndDateTime = DateTime.Parse("2020-06-24T14:45:23.000+00:00");
         private readonly DateTime SampleFarAwayEndDateTime = DateTime.Parse("4553-12-06T22:59:53.000+00:00");
         private readonly DateTime SampleMediumAwayEndDateTime = DateTime.Parse("3259-11-13T18:15:33.000+00:00");
 
-        private readonly DateTime SampleStartDateTime = DateTime.Parse("2020-06-23T13:00:00.000+00:00");
         private TimeCalculator _timeCalculator;
 
         [SetUp]
         public void Setup()
         {
             _timeCalculator = new TimeCalculator();
+        }
+
+        [Test]
+        public void DatesAreInTheSameWeek_ReturnsTrueIfDatesAreInSameWeek()
+        {
+            DateTime startDate = DateTime.Parse("12/27/2020");
+            DateTime endDate = DateTime.Parse("01/2/2021");
+
+            Assert.True(_timeCalculator.DatesAreInTheSameWeek(startDate, endDate));
+        }
+
+        [Test]
+        public void DatesAreInTheSameWeek_ReturnsFalseIfDatesAreNotInSameWeek()
+        {
+            DateTime startDate = DateTime.Parse("12/20/2020");
+            DateTime endDate = DateTime.Parse("12/27/2020");
+
+            Assert.False(_timeCalculator.DatesAreInTheSameWeek(startDate, endDate));
+        }
+
+        [Test]
+        public void DatesAreInTheSameMonth_ReturnsTrueIfDatesAreInSameMonth()
+        {
+            DateTime startDate = DateTime.Parse("12/27/2020");
+            DateTime endDate = DateTime.Parse("12/2/2020");
+
+            Assert.True(_timeCalculator.DatesAreInTheSameMonth(startDate, endDate));
+        }
+
+        [Test]
+        public void DatesAreInTheSameMonth_ReturnsFalseIfDatesAreNotInSameMonth()
+        {
+            DateTime startDate = DateTime.Parse("10/20/2020");
+            DateTime endDate = DateTime.Parse("12/27/2020");
+
+            Assert.False(_timeCalculator.DatesAreInTheSameMonth(startDate, endDate));
+        }
+
+        [Test]
+        public void DatesAreInTheSameYear_ReturnsTrueIfDatesAreInSameYear()
+        {
+            DateTime startDate = DateTime.Parse("12/27/2020");
+            DateTime endDate = DateTime.Parse("01/2/2020");
+
+            Assert.True(_timeCalculator.DatesAreInTheSameYear(startDate, endDate));
+        }
+
+        [Test]
+        public void DatesAreInTheSameYear_ReturnsFalseIfDatesAreNotInSameYear()
+        {
+            DateTime startDate = DateTime.Parse("12/31/2020");
+            DateTime endDate = DateTime.Parse("01/01/2021");
+
+            Assert.False(_timeCalculator.DatesAreInTheSameYear(startDate, endDate));
         }
 
         [Test]

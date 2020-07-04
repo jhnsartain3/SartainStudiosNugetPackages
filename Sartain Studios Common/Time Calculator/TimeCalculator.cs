@@ -1,6 +1,7 @@
 ﻿using Sartain_Studios_Common.Time_Calculator.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Sartain_Studios_Common.Time_Calculator
 {
@@ -10,10 +11,33 @@ namespace Sartain_Studios_Common.Time_Calculator
 
         QuantitiesOfTimeModel GetElapsedTimeQuantities(
             List<(DateTime startingInstance, DateTime endingInstance)> listOfStartingAndEndingTimes);
+
+        bool DatesAreInTheSameWeek(DateTime date1, DateTime date2);
+        bool DatesAreInTheSameMonth(DateTime date1, DateTime date2);
+        bool DatesAreInTheSameYear(DateTime date1, DateTime date2);
     }
 
     public class TimeCalculator : ITimeCalculator
     {
+        public bool DatesAreInTheSameYear(DateTime date1, DateTime date2)
+        {
+            return date1.Year == date2.Year;
+        }
+
+        public bool DatesAreInTheSameMonth(DateTime date1, DateTime date2)
+        {
+            return date1.Month == date2.Month;
+        }
+
+        public bool DatesAreInTheSameWeek(DateTime date1, DateTime date2)
+        {
+            var cal = DateTimeFormatInfo.CurrentInfo.Calendar;
+            var d1 = date1.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date1));
+            var d2 = date2.Date.AddDays(-1 * (int)cal.GetDayOfWeek(date2));
+
+            return d1 == d2;
+        }
+
         public QuantitiesOfTimeModel GetElapsedTimeQuantities(DateTime startingInstance, DateTime endingInstance)
         {
             var totalMinutes = CalculateTotalMinutesBetweenStartAndEndInstance(startingInstance, endingInstance);
@@ -76,61 +100,61 @@ namespace Sartain_Studios_Common.Time_Calculator
 
             if (MinutesToMillenniums(totalTimeInMinutes) != 0)
             {
-                relativeMillenniums = (int) MinutesToMillenniums(totalTimeInMinutes);
+                relativeMillenniums = (int)MinutesToMillenniums(totalTimeInMinutes);
                 totalTimeInMinutes -= MillenniumsToMinutes(relativeMillenniums);
             }
 
             if (MinutesToCenturies(totalTimeInMinutes) != 0)
             {
-                relativeCenturies = (int) MinutesToCenturies(totalTimeInMinutes);
+                relativeCenturies = (int)MinutesToCenturies(totalTimeInMinutes);
                 totalTimeInMinutes -= CenturiesToMinutes(relativeCenturies);
             }
 
             if (MinutesToDecades(totalTimeInMinutes) != 0)
             {
-                relativeDecades = (int) MinutesToDecades(totalTimeInMinutes);
+                relativeDecades = (int)MinutesToDecades(totalTimeInMinutes);
                 totalTimeInMinutes -= DecadesToMinutes(relativeDecades);
             }
 
             if (MinutesToYears(totalTimeInMinutes) != 0)
             {
-                relativeYears = (int) MinutesToYears(totalTimeInMinutes);
+                relativeYears = (int)MinutesToYears(totalTimeInMinutes);
                 totalTimeInMinutes -= YearsToMinutes(relativeYears);
             }
 
             if (MinutesToMonths(totalTimeInMinutes) != 0)
             {
-                relativeMonths = (int) MinutesToMonths(totalTimeInMinutes);
+                relativeMonths = (int)MinutesToMonths(totalTimeInMinutes);
                 totalTimeInMinutes -= MonthsToMinutes(relativeMonths);
             }
 
             if (MinutesToWeeks(totalTimeInMinutes) != 0)
             {
-                relativeWeeks = (int) MinutesToWeeks(totalTimeInMinutes);
+                relativeWeeks = (int)MinutesToWeeks(totalTimeInMinutes);
                 totalTimeInMinutes -= WeeksToMinutes(relativeWeeks);
             }
 
             if (MinutesToDays(totalTimeInMinutes) != 0)
             {
-                relativeDays = (int) MinutesToDays(totalTimeInMinutes);
+                relativeDays = (int)MinutesToDays(totalTimeInMinutes);
                 totalTimeInMinutes -= DaysToMinutes(relativeDays);
             }
 
             if (MinutesToHours(totalTimeInMinutes) != 0)
             {
-                relativeHours = (int) MinutesToHours(totalTimeInMinutes);
+                relativeHours = (int)MinutesToHours(totalTimeInMinutes);
                 totalTimeInMinutes -= HoursToMinutes(relativeHours);
             }
 
             if (MinutesTooMinutes(totalTimeInMinutes) != 0)
             {
-                relativeMinutes = (int) MinutesTooMinutes(totalTimeInMinutes);
+                relativeMinutes = (int)MinutesTooMinutes(totalTimeInMinutes);
                 totalTimeInMinutes -= MinutesToMinutes(relativeMinutes);
             }
 
             if (MinutesToSeconds(totalTimeInMinutes) != 0)
             {
-                relativeSeconds = (int) MinutesToSeconds(totalTimeInMinutes);
+                relativeSeconds = (int)MinutesToSeconds(totalTimeInMinutes);
                 totalTimeInMinutes -= SecondsToMinutes(relativeSeconds);
             }
 
