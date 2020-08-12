@@ -12,6 +12,8 @@ namespace Sartain_Studios_Common.Time_Calculator
         QuantitiesOfTimeModel GetElapsedTimeQuantities(
             List<(DateTime startingInstance, DateTime endingInstance)> listOfStartingAndEndingTimes);
 
+        double GetElapsedHours(List<(DateTime startingInstance, DateTime endingInstance)> listOfStartingAndEndingTimes);
+
         bool DatesAreInTheSameWeek(DateTime date1, DateTime date2);
         bool DatesAreInTheSameMonth(DateTime date1, DateTime date2);
         bool DatesAreInTheSameYear(DateTime date1, DateTime date2);
@@ -56,6 +58,20 @@ namespace Sartain_Studios_Common.Time_Calculator
                     x.endingInstance));
 
             return CalculateQuantitiesOfTime(totalMinutes);
+        }
+
+        public double GetElapsedHours(List<(DateTime startingInstance, DateTime endingInstance)> listOfStartingAndEndingTimes)
+        {
+            double totalMinutes = 0;
+
+            listOfStartingAndEndingTimes.ForEach(x =>
+                totalMinutes += CalculateTotalMinutesBetweenStartAndEndInstance(
+                    x.startingInstance,
+                    x.endingInstance));
+
+            double minutesInHour = 60;
+
+            return totalMinutes / minutesInHour;
         }
 
         private QuantitiesOfTimeModel CalculateQuantitiesOfTime(double totalMinutes)

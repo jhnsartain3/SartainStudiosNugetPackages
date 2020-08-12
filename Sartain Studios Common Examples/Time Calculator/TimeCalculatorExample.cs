@@ -19,11 +19,12 @@ namespace Sartain_Studios_Common_Examples.Time_Calculator
             GetElapsedTimeQuantitiesSingle();
 
             GetElapsedTimeQuantitiesMany();
+
+            GetElapsedHours();
         }
 
         public void GetElapsedTimeQuantitiesSingle()
         {
-
             Console.WriteLine("GetElapsedTimeQuantitiesSingle()");
             var resultGetElapsedTimeQuantitiesSingle = timeCalculator.GetElapsedTimeQuantities(startingInstance, endingInstance);
             Console.WriteLine(resultGetElapsedTimeQuantitiesSingle.TotalDays);
@@ -34,6 +35,13 @@ namespace Sartain_Studios_Common_Examples.Time_Calculator
             Console.WriteLine("GetElapsedTimeQuantitiesMany()");
             var resultGetElapsedTimeQuantitiesMany = timeCalculator.GetElapsedTimeQuantities(listOfStartingAndEndingTimes);
             Console.WriteLine(resultGetElapsedTimeQuantitiesMany.TotalDays);
+        }
+
+        public void GetElapsedHours()
+        {
+            Console.WriteLine("GetElapsedHours()");
+            var resultGetElapsedTimeQuantitiesMany = timeCalculator.GetElapsedHours(listOfStartingAndEndingTimes);
+            Console.WriteLine(resultGetElapsedTimeQuantitiesMany);
         }
     }
 }
