@@ -11,19 +11,10 @@ namespace DatabaseInteraction
     public class MongoDatabaseAccessWithoutUserId<TEntity> : IDatabaseAccessWithoutUserId<TEntity> where TEntity : EntityBaseWithoutUserId
     {
         protected IMongoDatabase MongoDatabase;
-        protected ConnectionModel ConnectionModel;
         protected IMongoCollection<TEntity> Items;
 
-        protected MongoDatabaseAccessWithoutUserId(IConfiguration configuration)
+        protected MongoDatabaseAccess(IConfiguration configuration)
         {
-            ConnectionModel = new ConnectionModel
-            {
-                ConnectionString = configuration["ConnectionStrings:UsersDatabaseServer"],
-                DatabaseName = configuration["DatabaseNames:Users"],
-                CollectionName = configuration["CollectionNames:user"]
-            };
-
-            SetupConnectionAsync(configuration);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -51,12 +42,12 @@ namespace DatabaseInteraction
             await CheckExceptions(async () => await Items.DeleteOneAsync(item => item.Id == id));
         }
 
-        private void SetupConnectionAsync(IConfiguration configuration)
+        public void SetupConnectionAsync(ConnectionModel connectionModel)
         {
             try
             {
-                var mongoClient = new MongoClient(ConnectionModel.ConnectionString);
-                MongoDatabase = mongoClient.GetDatabase(ConnectionModel.DatabaseName);
+                var mongoClient = new MongoClient(connectionModel.ConnectionString);
+                MongoDatabase = mongoClient.GetDatabase(connectionModel.DatabaseName);
             }
             catch (NullReferenceException nullReferenceException)
             {

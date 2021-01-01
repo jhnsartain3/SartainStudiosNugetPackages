@@ -11,5 +11,6 @@ namespace DatabaseInteraction.Interfaces
         Task UpdateAsync(string id, TEntity entity);
         Task CreateAsync(TEntity entity);
         Task DeleteAsync(string id);
+        void SetupConnectionAsync(ConnectionModel connectionModel);
     }
 }
