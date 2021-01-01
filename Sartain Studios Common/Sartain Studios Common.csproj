@@ -6,7 +6,7 @@
     <PackageId>SartainStudios.Common</PackageId>
     <Authors>John Sartain</Authors>
     <Company>Sartain Studios</Company>
-    <Version>1.6.2.0</Version>
+    <Version>1.6.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

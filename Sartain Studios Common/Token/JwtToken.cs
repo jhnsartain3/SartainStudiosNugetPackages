@@ -47,13 +47,22 @@ namespace Sartain_Studios_Common.Token
 
         private static IEnumerable<Claim> CreateJwtClaims(int jwtExpirationInMinutes, UserModel userModel = null)
         {
+            if (userModel == null) userModel = new UserModel();
+
+            if (userModel.Username == null) userModel.Username = "No name found";
+            if (userModel.FirstName == null) userModel.FirstName = "No first name given";
+            if (userModel.Lastname == null) userModel.Lastname = "No last name found";
+            if (userModel.Id == null) userModel.Id = "No user id found";
+            if (userModel.ProfilePhoto == null) userModel.ProfilePhoto = "No profile photo found";
+            if (userModel.Email == null) userModel.Email = "No email found";
+
             return new[]
             {
-                new Claim(ClaimTypes.Name, userModel.Username?? "No name found"),
-                new Claim(JwtRegisteredClaimNames.GivenName, userModel.FirstName +" "+ userModel.Lastname?? "No name given"),
-                new Claim(JwtRegisteredClaimNames.NameId, userModel.Id.ToString() ?? "No user id found"),
-                new Claim(JwtRegisteredClaimNames.FamilyName, userModel.ProfilePhoto??"No profile photo found"),
-                new Claim(JwtRegisteredClaimNames.Email, userModel.Email ?? "No email found"),
+                new Claim(ClaimTypes.Name, userModel.Username),
+                new Claim(JwtRegisteredClaimNames.GivenName, userModel.FirstName +" "+ userModel.Lastname),
+                new Claim(JwtRegisteredClaimNames.NameId, userModel.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.FamilyName, userModel.ProfilePhoto),
+                new Claim(JwtRegisteredClaimNames.Email, userModel.Email),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(jwtExpirationInMinutes)).ToUnixTimeSeconds().ToString())
             };
