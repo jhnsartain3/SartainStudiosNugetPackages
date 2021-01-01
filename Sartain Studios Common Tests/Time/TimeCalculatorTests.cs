@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Sartain_Studios_Common.Time_Calculator;
 
@@ -11,11 +12,19 @@ namespace Sartain_Studios_Common_Tests.Time_Calculator
         private readonly DateTime SampleFarAwayEndDateTime = DateTime.Parse("4553-12-06T22:59:53.000+00:00");
         private readonly DateTime SampleMediumAwayEndDateTime = DateTime.Parse("3259-11-13T18:15:33.000+00:00");
 
+        private List<(DateTime startingInstance, DateTime endingInstance)> listOfStartingAndEndingTimes;
+
         private TimeCalculator _timeCalculator;
 
         [SetUp]
         public void Setup()
         {
+            listOfStartingAndEndingTimes = new List<(DateTime startingInstance, DateTime endingInstance)> 
+            {
+                (DateTime.Now, DateTime.Now.AddDays(1)),
+                (DateTime.Now, DateTime.Now.AddDays(5000))
+            };
+
             _timeCalculator = new TimeCalculator();
         }
 
@@ -177,6 +186,15 @@ namespace Sartain_Studios_Common_Tests.Time_Calculator
             Assert.GreaterOrEqual(3, result.RelativeDecades);
             Assert.GreaterOrEqual(5, result.RelativeCenturies);
             Assert.GreaterOrEqual(2, result.RelativeMillenniums);
+        }
+
+        [Test]
+        public void GetElapsedHours_CalculatesCorrectTotalTimeWhenShortTimeRange()
+        {
+            var result = _timeCalculator.GetElapsedHours(listOfStartingAndEndingTimes);
+
+            Assert.GreaterOrEqual(120024.0000001d, result);
+            Assert.LessOrEqual(120024.0d, result);
         }
     }
 }
