@@ -13,7 +13,7 @@ namespace DatabaseInteraction
         protected IMongoDatabase MongoDatabase;
         protected IMongoCollection<TEntity> Items;
 
-        protected MongoDatabaseAccess(IConfiguration configuration)
+        protected MongoDatabaseAccessWithoutUserId(IConfiguration configuration)
         {
         }
 
