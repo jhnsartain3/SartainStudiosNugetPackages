@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Sartain_Studios_Common.Interfaces.Token;
+using SharedModels;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,19 +20,19 @@ namespace Sartain_Studios_Common.Token
             _jwtExpirationInMinutes = jwtExpirationInMinutes;
         }
 
-        public string GenerateToken()
+        public string GenerateToken(UserModel userModel = null)
         {
-            return GenerateJwtToken(_jwtSecret, _jwtExpirationInMinutes);
+            return GenerateJwtToken(_jwtSecret, _jwtExpirationInMinutes, userModel);
         }
 
-        public static string GenerateJwtToken(string jwtSecret, int jwtExpirationInMinutes)
+        public static string GenerateJwtToken(string jwtSecret, int jwtExpirationInMinutes, UserModel userModel = null)
         {
-            return new JwtSecurityTokenHandler().WriteToken(CreateJwtToken(jwtSecret, jwtExpirationInMinutes));
+            return new JwtSecurityTokenHandler().WriteToken(CreateJwtToken(jwtSecret, jwtExpirationInMinutes, userModel));
         }
 
-        private static JwtSecurityToken CreateJwtToken(string jwtSecret, int jwtExpirationInMinutes)
+        private static JwtSecurityToken CreateJwtToken(string jwtSecret, int jwtExpirationInMinutes, UserModel userModel = null)
         {
-            return new JwtSecurityToken(GetJwtHeader(jwtSecret), GetJwtPayload(jwtExpirationInMinutes));
+            return new JwtSecurityToken(GetJwtHeader(jwtSecret), GetJwtPayload(jwtExpirationInMinutes, userModel));
         }
 
         private static JwtHeader GetJwtHeader(string jwtSecret)
@@ -39,15 +40,20 @@ namespace Sartain_Studios_Common.Token
             return new JwtHeader(new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)), SecurityAlgorithms.HmacSha256));
         }
 
-        private static JwtPayload GetJwtPayload(int jwtExpirationInMinutes)
+        private static JwtPayload GetJwtPayload(int jwtExpirationInMinutes, UserModel userModel = null)
         {
-            return new JwtPayload(CreateJwtClaims(jwtExpirationInMinutes));
+            return new JwtPayload(CreateJwtClaims(jwtExpirationInMinutes, userModel));
         }
 
-        private static IEnumerable<Claim> CreateJwtClaims(int jwtExpirationInMinutes)
+        private static IEnumerable<Claim> CreateJwtClaims(int jwtExpirationInMinutes, UserModel userModel = null)
         {
             return new[]
             {
+                new Claim(ClaimTypes.Name, userModel.Username?? "No name found"),
+                new Claim(JwtRegisteredClaimNames.GivenName, userModel.FirstName +" "+ userModel.Lastname?? "No name given"),
+                new Claim(JwtRegisteredClaimNames.NameId, userModel.Id.ToString() ?? "No user id found"),
+                new Claim(JwtRegisteredClaimNames.FamilyName, userModel.ProfilePhoto??"No profile photo found"),
+                new Claim(JwtRegisteredClaimNames.Email, userModel.Email ?? "No email found"),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(jwtExpirationInMinutes)).ToUnixTimeSeconds().ToString())
             };

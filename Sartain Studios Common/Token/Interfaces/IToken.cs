@@ -1,7 +1,9 @@
-﻿namespace Sartain_Studios_Common.Interfaces.Token
+﻿using SharedModels;
+
+namespace Sartain_Studios_Common.Interfaces.Token
 {
     public interface IToken
     {
-        string GenerateToken();
+        string GenerateToken(UserModel userModel = null);
     }
 }
