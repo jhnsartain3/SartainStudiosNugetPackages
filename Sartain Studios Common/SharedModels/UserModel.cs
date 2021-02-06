@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using DatabaseInteraction.Models;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -27,5 +29,21 @@ namespace SharedModels
         public string Lastname { get; set; }
 
         [BsonElement("profilephoto")] public string ProfilePhoto { get; set; }
+
+        [BsonElement("roles")] public List<string> Roles { get; set; }
+
+        [BsonElement("accountcreateddatetime")]
+        [DataType(DataType.DateTime)]
+        public DateTime? AccountCreatedDateTime { get; set; }
+
+        [BsonElement("accountlastaccesseddatetime")]
+        [DataType(DataType.DateTime)]
+        public string? AccountLastAccessedDateTime { get; set; }
+
+        [BsonElement("accountaccessdatetimes")]
+        public List<string>? AccountAccessDateTimes { get; set; }
+
+        [BsonElement("sitesused")]
+        public List<string>? SitesUsed { get; set; }
     }
 }

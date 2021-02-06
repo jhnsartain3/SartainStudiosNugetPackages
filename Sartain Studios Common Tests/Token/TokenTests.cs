@@ -1,17 +1,22 @@
 ﻿using NUnit.Framework;
+using Sartain_Studios_Common.Interfaces.Token;
 using Sartain_Studios_Common.Token;
 using SharedModels;
 
 namespace Sartain_Studios_Common_Tests.Token
 {
-    public class TokenTests
+    public class JwtTokenTests
     {
-        private JwtToken _hasher;
+        private IToken _hasher;
+
+        private string jwtSecret = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
+
+        private int jwtExpirationInMinutes = 60;
 
         [SetUp]
         public void Setup()
         {
-            _hasher = new JwtToken("fdasfsdabhjkghghujkhuihuoihuoihuoijhoihoijhohoihof", 33);
+            _hasher = new JwtToken(jwtSecret, jwtExpirationInMinutes);
         }
 
         [Test]
@@ -19,7 +24,7 @@ namespace Sartain_Studios_Common_Tests.Token
         {
             var result = _hasher.GenerateToken();
 
-            Assert.GreaterOrEqual(result.Length, 50 );
+            Assert.GreaterOrEqual(result.Length, 50);
         }
 
         [Test]
