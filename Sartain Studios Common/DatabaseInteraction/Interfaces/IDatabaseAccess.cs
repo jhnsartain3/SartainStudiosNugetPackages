@@ -9,7 +9,7 @@ namespace DatabaseInteraction.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(string id);
         Task UpdateAsync(string id, TEntity entity);
-        Task CreateAsync(TEntity entity);
+        Task<string> CreateAsync(TEntity entity);
         Task DeleteAsync(string id);
         void SetupConnectionAsync(ConnectionModel connectionModel);
     }

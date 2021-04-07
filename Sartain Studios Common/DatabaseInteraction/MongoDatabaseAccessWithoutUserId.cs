@@ -32,9 +32,11 @@ namespace DatabaseInteraction
             await CheckExceptions(async () => await Items.ReplaceOneAsync(item => item.Id == id, entity));
         }
 
-        public async Task CreateAsync(TEntity entity)
+        public async Task<string> CreateAsync(TEntity entity)
         {
             await CheckExceptions(async () => await Items.InsertOneAsync(entity));
+            
+            return entity.Id;
         }
 
         public async Task DeleteAsync(string id)
