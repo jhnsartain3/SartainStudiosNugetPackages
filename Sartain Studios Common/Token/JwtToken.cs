@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Linq;
+using Sartain_Studios_Common.SharedEntities;
 
 namespace Sartain_Studios_Common.Token
 {
@@ -31,6 +32,19 @@ namespace Sartain_Studios_Common.Token
 
             return claims.Claims.FirstOrDefault(m => m.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
         }
+
+        public bool IsUserLeastPrivileged(string authorizationToken)
+        {
+            string token = authorizationToken;
+
+            token = token.Substring(7, token.Length - 7);
+
+            var claims = GetClaimsFromToken(token);
+
+            return claims.Claims.Any(m => m.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role" && IsPrivilegedAccount(m.Value));
+        }
+
+        private static bool IsPrivilegedAccount(string role) => role.Equals(Role.God) || role.Equals(Role.Administrator) || role.Equals(Role.Service);
 
         private static ClaimsPrincipal GetClaimsFromToken(string token)
         {

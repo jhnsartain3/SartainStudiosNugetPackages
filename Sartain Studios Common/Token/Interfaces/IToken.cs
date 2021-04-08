@@ -6,5 +6,6 @@ namespace Sartain_Studios_Common.Interfaces.Token
     {
         string GenerateToken(UserModel userModel = null);
         string GetUserIdFromAuthorizationToken(string authorizationToken);
+        bool IsUserLeastPrivileged(string authorizationToken);
     }
 }
