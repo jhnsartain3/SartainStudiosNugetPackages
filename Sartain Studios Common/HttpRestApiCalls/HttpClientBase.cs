@@ -39,7 +39,7 @@ namespace Sartain_Studios_Common.HttpRestApiCalls
             await CheckExceptions(async () => await _httwrapClient.GetAsync(urlExtension, null, token != null ? GetCustomHeaders(token) : null));
 
         protected async Task<IHttwrapResponse> GetByIdAsync<T>(string urlExtension, string token = null) =>
-            await CheckExceptions(async () => await _httwrapClient.GetAsync<T>(urlExtension, null, token != null ? GetCustomHeaders(token) : null));
+            await CheckExceptions(async () => await _httwrapClient.GetAsync(urlExtension, null, token != null ? GetCustomHeaders(token) : null));
 
         protected async Task<IHttwrapResponse> PutAsync(string urlExtension, TEntity model, string token = null) =>
             await CheckExceptions(async () => await _httwrapClient.PutAsync(urlExtension, model, null, token != null ? GetCustomHeaders(token) : null));

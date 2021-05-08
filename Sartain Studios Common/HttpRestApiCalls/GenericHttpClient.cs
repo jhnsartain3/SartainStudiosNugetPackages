@@ -34,7 +34,7 @@ namespace Sartain_Studios_Common.HttpRestApiCalls
             await CheckResponseExceptions(async () => (await base.GetAllByIdAsync<T>(urlExtension + "/" + id, token)).ReadAs<List<T>>());
 
         public new async Task<TEntity> GetByIdAsync(string urlExtension, string id, string token = null) =>
-            await CheckResponseExceptions(async () => (await base.GetAllByIdAsync(urlExtension + "/" + id, token)).ReadAs<TEntity>());
+            await CheckResponseExceptions(async () => (await base.GetByIdAsync(urlExtension + "/" + id, token)).ReadAs<TEntity>());
 
         public new async Task<T> GetByIdAsync<T>(string urlExtension, string id, string token = null) =>
             await CheckResponseExceptions(async () => (await base.GetByIdAsync<T>(urlExtension + "/" + id, token)).ReadAs<T>());
